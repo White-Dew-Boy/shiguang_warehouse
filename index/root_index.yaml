@@ -192,3 +192,8 @@ schools:
     name: "武汉商学院"
     initial: "W"
     resource_folder: "WBU"
+
+  - id: "NENU"
+    name: "东北师范大学"
+    initial: "D"
+    resource_folder: "NENU"
