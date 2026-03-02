@@ -187,3 +187,8 @@ schools:
     name: "重庆人文科技学院"
     initial: "C"
     resource_folder: "CQRK"    
+
+  - id: "WBU"
+    name: "武汉商学院"
+    initial: "W"
+    resource_folder: "WBU"
