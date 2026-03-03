@@ -108,10 +108,14 @@ function parseTimetableToModel(doc) {
                     let startSection = 0;
                     let endSection = 0;
                     if (weekStr) {
-                        const secMatch = weekStr.match(/\[(\d+)(?:-(\d+))?节\]/);
-                        if (secMatch) {
-                            startSection = parseInt(secMatch[1]);
-                            endSection = secMatch[2] ? parseInt(secMatch[2]) : startSection;
+                        // 匹配方括号内所有的数字
+                        const sectionPart = weekStr.match(/\[(.*?)节\]/);
+                        if (sectionPart && sectionPart[1]) {
+                            const sections = sectionPart[1].split('-').map(Number).filter(n => !isNaN(n));
+                            if (sections.length > 0) {
+                                startSection = sections[0];
+                                endSection = sections[sections.length - 1];
+                            }
                         }
                     }
 
