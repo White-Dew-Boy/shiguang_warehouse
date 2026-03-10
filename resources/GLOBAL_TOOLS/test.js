@@ -333,12 +333,12 @@ async function saveCourses(courseData) {
 
 }
 
-async function demoSaveConfig() {
+async function demoSaveConfig(semesterTotalWeeks) {
     console.log("正在准备配置数据...");
     // 注意：只传入要修改的字段，其他字段（如 semesterTotalWeeks）会使用 Kotlin 模型中的默认值
     const courseConfigData = {
         "semesterStartDate": "2025-09-01",
-        "semesterTotalWeeks": 18,
+        "semesterTotalWeeks": Number(semesterTotalWeeks),
         "defaultClassDuration": 50,
         "defaultBreakDuration": 5,
         "firstDayOfWeek": 7
@@ -347,9 +347,7 @@ async function demoSaveConfig() {
     try {
         console.log("正在尝试导入课表配置...");
         const configJsonString = JSON.stringify(courseConfigData);
-
         const result = await window.AndroidBridgePromise.saveCourseConfig(configJsonString);
-
         if (result === true) {
             console.log("课表配置导入成功！");
             AndroidBridge.showToast("测试配置导入成功！开学日期: 2025-09-01");
@@ -416,7 +414,7 @@ async function runAllDemosSequentially() {
         return;
     }
     await importPresetTimeSlots();
-    await demoSaveConfig();
+    await demoSaveConfig(totalNum);
 
     // 发送最终的生命周期完成信号
     AndroidBridge.notifyTaskCompletion();
