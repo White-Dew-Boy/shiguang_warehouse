@@ -98,6 +98,7 @@ async function importPresetTimeSlots() {
     ]
 
     try {
+        window.AndroidBridge.showToast("正在导入预设时间段......")
         const result = await window.AndroidBridgePromise.savePresetTimeSlots(JSON.stringify(timeSlots));
         if (result === true) {
             window.AndroidBridge.showToast("时间段导入成功！");
