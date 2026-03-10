@@ -1,0 +1,8 @@
+adapters: 
+      - adapter_id: "JNU_01" # id加上序号
+            adapter_name: "暨南大学金智教务"
+            category: "BACHELOR_AND_ASSOCIATE"
+            asset_js_path: "jnu_01.js" #相对路径
+            import_url: "https://jw.jnu.edu.cn"
+            maintainer: "White-Dew-Boy"
+            description: "本脚本的时间段导入仅适配珠海校区"
