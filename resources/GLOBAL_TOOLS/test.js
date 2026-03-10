@@ -333,22 +333,53 @@ async function saveCourses(courseData) {
 
 }
 
+async function demoSaveConfig() {
+    console.log("正在准备配置数据...");
+    // 注意：只传入要修改的字段，其他字段（如 semesterTotalWeeks）会使用 Kotlin 模型中的默认值
+    const courseConfigData = {
+        "semesterStartDate": "2025-09-01",
+        "semesterTotalWeeks": 18,
+        "defaultClassDuration": 50,
+        "defaultBreakDuration": 5,
+        "firstDayOfWeek": 7
+    };
+
+    try {
+        console.log("正在尝试导入课表配置...");
+        const configJsonString = JSON.stringify(courseConfigData);
+
+        const result = await window.AndroidBridgePromise.saveCourseConfig(configJsonString);
+
+        if (result === true) {
+            console.log("课表配置导入成功！");
+            AndroidBridge.showToast("测试配置导入成功！开学日期: 2025-09-01");
+        } else {
+            console.log("课表配置导入未成功，结果：" + result);
+            AndroidBridge.showToast("测试配置导入失败，请查看日志。");
+        }
+    } catch (error) {
+        console.error("导入配置时发生错误:", error);
+        AndroidBridge.showToast("导入配置失败: " + error.message);
+    }
+}
+
 //导入课表配置
-async function saveConfig() {
+async function saveConfig(semesterTotalWeeks) {
     // 注意：只传入要修改的字段，其他字段（如 semesterTotalWeeks）会使用 Kotlin 模型中的默认值
     const courseConfigData = {
         "semesterStartDate": "2025-9-01",
-        "semesterTotalWeeks": 20,
+        "semesterTotalWeeks": Number(semesterTotalWeeks),
         "defaultClassDuration": 45,
         "defaultBreakDuration": 10,
         "firstDayOfWeek": 7
     };
 
     try {
+        console.log("正在尝试导入课表配置...");
         const configJsonString = JSON.stringify(courseConfigData);
         const result = await window.AndroidBridgePromise.saveCourseConfig(configJsonString);
         if (result === true) {
-            AndroidBridge.showToast("课表！");
+            AndroidBridge.showToast("课表配置导入成功！");
         } else {
             AndroidBridge.showToast("课表配置导入失败");
         }
@@ -384,9 +415,8 @@ async function runAllDemosSequentially() {
     if(totalNum === 0) {
         return;
     }
-    console.log(totalNum);
     await importPresetTimeSlots();
-    await saveConfig();
+    await demoSaveConfig();
 
     // 发送最终的生命周期完成信号
     AndroidBridge.notifyTaskCompletion();
