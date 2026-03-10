@@ -353,8 +353,7 @@ async function runAllDemosSequentially() {
     // AndroidBridge.showToast("所有弹窗演示已完成！");
 
     // 以下是数据导入，与用户交互无关，可以继续
-    //const totalNum = 
-        await saveCourses();
+    const totalNum = await saveCourses();
     //await saveConfig(totalNum);
     await importPresetTimeSlots();
 
