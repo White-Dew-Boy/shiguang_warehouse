@@ -306,14 +306,13 @@ async function saveCourses(courseData) {
         const result = await window.AndroidBridgePromise.saveImportedCourses(JSON.stringify(courses));
         if (result === true) {
             AndroidBridge.showToast("课程导入成功！");
+            return totalWeeksNum;
         } else {
             AndroidBridge.showToast("课程导入失败!");
         }
     } catch (error) {
         AndroidBridge.showToast("导入课程失败: " + error.message);
     }
-    AndroidBridge.showToast("得到总周数如下：" + totalWeekNum)
-    return totalWeeksNum;
 }
 
 /**
@@ -355,6 +354,7 @@ async function runAllDemosSequentially() {
 
     // 以下是数据导入，与用户交互无关，可以继续
     const totalNum = await saveCourses();
+    AndroidBridge.showToast("得到总周数如下：" + totalNum);
     //await saveConfig(totalNum);
     await importPresetTimeSlots();
 
