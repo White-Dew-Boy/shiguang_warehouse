@@ -247,3 +247,8 @@ schools:
     name: "甘肃医学院"
     initial: "G"
     resource_folder: "GSMC"
+
+  - id: "TCU"
+    name: "天津城建大学"
+    initial: "T"
+    resource_folder: "TCU"
