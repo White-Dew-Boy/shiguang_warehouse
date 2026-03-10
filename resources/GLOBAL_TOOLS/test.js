@@ -399,10 +399,10 @@ async function saveCourses(courseData) {
 }
 
 //导入课表配置
-async function saveConfig(semesterTotalWeeks) {
+async function saveConfig(semesterStartDate, semesterTotalWeeks) {
     // 注意：只传入要修改的字段，其他字段（如 semesterTotalWeeks）会使用 Kotlin 模型中的默认值
     const courseConfigData = {
-        "semesterStartDate": "2025-09-01", //月份要使用两位数，否则软件会崩溃
+        "semesterStartDate": semesterStartDate, //月份要使用两位数，否则软件会崩溃
         "semesterTotalWeeks": Number(semesterTotalWeeks),
         "defaultClassDuration": 45,
         "defaultBreakDuration": 10,
@@ -457,7 +457,7 @@ async function runAllDemosSequentially() {
         return;
     }
     await importPresetTimeSlots();
-    await saveConfig(totalNum);
+    await saveConfig(semesterStartData, totalNum);
 
     // 发送最终的生命周期完成信号
     AndroidBridge.notifyTaskCompletion();
