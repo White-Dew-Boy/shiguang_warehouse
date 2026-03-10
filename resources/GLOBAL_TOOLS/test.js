@@ -387,7 +387,7 @@ async function runAllDemosSequentially() {
     }
     console.log(totalNum);
     await importPresetTimeSlots();
-    await saveConfig(totalNum);
+    //await saveConfig(totalNum);
 
     // 发送最终的生命周期完成信号
     AndroidBridge.notifyTaskCompletion();
