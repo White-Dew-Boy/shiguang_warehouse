@@ -338,7 +338,7 @@ async function saveConfig(semesterTotalWeeks) {
     // 注意：只传入要修改的字段，其他字段（如 semesterTotalWeeks）会使用 Kotlin 模型中的默认值
     const courseConfigData = {
         "semesterStartDate": "2025-9-01",
-        "semesterTotalWeeks": Number(semesterTotalWeeks),
+        "semesterTotalWeeks": 20,
         "defaultClassDuration": 45,
         "defaultBreakDuration": 10,
         "firstDayOfWeek": 7
