@@ -98,7 +98,6 @@ async function importPresetTimeSlots() {
     ]
 
     try {
-        window.AndroidBridge.showToast("正在导入预设时间段......")
         const result = await window.AndroidBridgePromise.savePresetTimeSlots(JSON.stringify(timeSlots));
         if (result === true) {
             window.AndroidBridge.showToast("时间段导入成功！");
@@ -122,7 +121,6 @@ async function saveConfig(semesterTotalWeeks) {
     };
 
     try {
-        console.log("正在尝试导入课表配置...");
         const configJsonString = JSON.stringify(courseConfigData);
         const result = await window.AndroidBridgePromise.saveCourseConfig(configJsonString);
 
@@ -302,7 +300,6 @@ async function saveCourses(courseData) {
     // }
 
     try {
-        console.log("正在尝试导入课程...");
         const result = await window.AndroidBridgePromise.saveImportedCourses(JSON.stringify(courses));
         if (result === true) {
             AndroidBridge.showToast("课程导入成功！");
