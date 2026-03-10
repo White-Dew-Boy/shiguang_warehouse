@@ -514,7 +514,7 @@ async function saveCourses(parsedData) {
 
         AndroidBridge.showToast(`准备保存开学时间 ${startDateInfo.startDate}`);
 
-        const courseSaveResult = await window.AndroidBridgePromise.saveCourseConfig (
+        let courseSaveResult = await window.AndroidBridgePromise.saveCourseConfig (
             JSON.stringify(configData)  
         );
         
