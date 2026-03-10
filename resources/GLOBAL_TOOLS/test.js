@@ -312,7 +312,7 @@ async function saveCourses(courseData) {
     } catch (error) {
         AndroidBridge.showToast("导入课程失败: " + error.message);
     }
-    AndroidBridge.showToast(“得到总周数如下：” + totalWeekNum)
+    AndroidBridge.showToast("得到总周数如下：" + totalWeekNum)
     return totalWeeksNum;
 }
 
