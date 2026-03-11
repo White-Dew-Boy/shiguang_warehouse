@@ -409,7 +409,7 @@ async function saveConfig(semesterStartData, semesterTotalWeeks) {
         const configJsonString = JSON.stringify(courseConfigData);
         const result = await window.AndroidBridgePromise.saveCourseConfig(configJsonString);
         if (result === true) {
-            //AndroidBridge.showToast("课表配置导入成功！");
+            AndroidBridge.showToast("课表配置导入成功！");
         } else {
             AndroidBridge.showToast("课表配置导入失败");
         }
