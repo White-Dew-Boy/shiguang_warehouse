@@ -190,7 +190,7 @@ async function importPresetTimeSlots() {
     try {
         const result = await window.AndroidBridgePromise.savePresetTimeSlots(JSON.stringify(timeSlots));
         if (result === true) {
-            AndroidBridge.showToast("时间段导入成功！");
+            //AndroidBridge.showToast("时间段导入成功！");
         } else {
             AndroidBridge.showToast("时间段导入失败!");
         }
@@ -384,7 +384,7 @@ async function saveCourses(courseData) {
     try {
         const result = await window.AndroidBridgePromise.saveImportedCourses(JSON.stringify(courses));
         if (result === true) {
-            AndroidBridge.showToast("课程导入成功！");
+            //AndroidBridge.showToast("课程导入成功！");
             return totalWeeksNum;
         } else {
             AndroidBridge.showToast("课程导入失败!");
@@ -401,7 +401,7 @@ async function saveCourses(courseData) {
 async function saveConfig(semesterStartDate, semesterTotalWeeks) {
     // 注意：只传入要修改的字段，其他字段（如 semesterTotalWeeks）会使用 Kotlin 模型中的默认值
     const courseConfigData = {
-        "semesterStartDate": semesterStartDate, //月份要使用两位数，否则软件会崩溃
+        "semesterStartDate": String(semesterStartDate), //月份要使用两位数，否则软件会崩溃
         "semesterTotalWeeks": Number(semesterTotalWeeks),
         "defaultClassDuration": 45,
         "defaultBreakDuration": 10,
@@ -409,11 +409,10 @@ async function saveConfig(semesterStartDate, semesterTotalWeeks) {
     };
 
     try {
-        console.log("正在尝试导入课表配置...");
         const configJsonString = JSON.stringify(courseConfigData);
         const result = await window.AndroidBridgePromise.saveCourseConfig(configJsonString);
         if (result === true) {
-            AndroidBridge.showToast("课表配置导入成功！");
+            //AndroidBridge.showToast("课表配置导入成功！");
         } else {
             AndroidBridge.showToast("课表配置导入失败");
         }
