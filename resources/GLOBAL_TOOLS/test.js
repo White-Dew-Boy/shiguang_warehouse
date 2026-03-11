@@ -82,7 +82,6 @@ async function getSemesterStartDate(){
                     if(day < 10) {
                         day = "0" + day;
                     }
-                    AndroidBridge.showToast("选择的开学时间是：" + (year + '-' + month + '-' + day));
                     return year + '-' + month + '-' + day;
                 } else {
                     AndroidBridge.showToast("用户取消了选择！");
@@ -451,6 +450,7 @@ async function runAllDemosSequentially() {
     if(semesterStartDate === -1) {
         return;
     }
+    AndroidBridge.showToast("选择的开学时间是：" + semesterStartDate);
 
     const totalNum = await saveCourses();
     if(totalNum === -1) {
