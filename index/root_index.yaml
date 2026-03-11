@@ -271,4 +271,9 @@ schools:
   - id: "HYNU"
     name: "衡阳师范学院"
     initial: "H"
-    resource_folder: "HYNU"    
+    resource_folder: "HYNU"
+
+  - id: "JNU"    
+    name: "暨南大学" 
+    initial: "J"          
+    resource_folder: "JNU"   
