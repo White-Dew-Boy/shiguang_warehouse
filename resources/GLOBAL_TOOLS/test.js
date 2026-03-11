@@ -8,6 +8,8 @@ for(let i=1990; i<=2100; i++){
     yearArr.push(i);
 }
 
+let semesterStartData = "";
+
 //获取本月最大日期
 function getDaysInMonth(year, month) {
     return new Date(year, month, 0).getDate();
@@ -79,7 +81,8 @@ async function getSemesterStartDate(){
                     const yearStr = year.toString();
                     const monthStr = month.toString().padStart(2,"0"); //补充为两位
                     const dayStr = day.toString().padStart(2,"0"); //补充为两位
-                    return "${yearStr}-${monthStr}-${dayStr}";
+                    semesterStartData = "${yearStr}-${monthStr}-${dayStr}";
+                    return 0;
                 } else {
                     AndroidBridge.showToast("用户取消了选择！");
                     return -1; // 用户取消时返回 false
@@ -395,7 +398,7 @@ async function saveCourses(courseData) {
 }
 
 //导入课表配置
-async function saveConfig(semesterStartDate, semesterTotalWeeks) {
+async function saveConfig(semesterTotalWeeks) {
     // 注意：只传入要修改的字段，其他字段（如 semesterTotalWeeks）会使用 Kotlin 模型中的默认值
     const courseConfigData = {
         "semesterStartDate": semesterStartDate, //月份要使用两位数，否则软件会崩溃
@@ -442,18 +445,19 @@ async function runAllDemosSequentially() {
     }
 
     //获取开学日期
-    const semesterStartDate = await getSemesterStartDate();
-    if(semesterStartDate === -1) {
+    const getSemesterStartDateResult = await getSemesterStartDate();
+    if(getSemesterStartDateResult === -1) {
         return;
+    }else{
+        AndroidBridge.showToast("选择的开学时间是：" + semesterStartDate);
     }
-    AndroidBridge.showToast("选择的开学时间是：" + semesterStartDate);
-
+    
     const totalNum = await saveCourses();
     if(totalNum === -1) {
         return;
     }
     await importPresetTimeSlots();
-    await saveConfig(semesterStartDate, totalNum);
+    await saveConfig(totalNum);
 
     // 发送最终的生命周期完成信号
     AndroidBridge.notifyTaskCompletion();
