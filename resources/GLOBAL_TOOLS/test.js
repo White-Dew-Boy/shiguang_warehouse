@@ -48,56 +48,6 @@ async function confirmAlert() {
     }
 }
 
-// //显示选择开学日期的三次单选框
-// async function getSemesterStartDate(){
-//     try {
-//         const yearIndex = await window.AndroidBridgePromise.showSingleSelection(
-//             "请选择开学时间（年份）",
-//             JSON.stringify(yearArr),
-//             36
-//         );
-//         if (yearIndex !== null && yearIndex >= 0 && yearIndex < yearArr.length) {
-//             const year = yearArr[yearIndex];
-//             const monthIndex = await window.AndroidBridgePromise.showSingleSelection(
-//                 "请选择开学时间（月份）",
-//                 JSON.stringify([1,2,3,4,5,6,7,8,9,10,11,12]),
-//                 2
-//             );
-//             if (monthIndex !== null && monthIndex >= 0 && monthIndex < 12) {
-//                 const month =[1,2,3,4,5,6,7,8,9,10,11,12][monthIndex];
-//                 const dayArr = [];
-//                 for (let i = 1; i <= getDaysInMonth(year,month); i++) {
-//                     dayArr.push(i);
-//                 }
-//                 const dayIndex = await window.AndroidBridgePromise.showSingleSelection(
-//                     "请选择开学时间（日期）",
-//                     JSON.stringify(dayArr),
-//                     7
-//                 );
-//                 if (dayIndex !== null && dayIndex >= 0 && dayIndex < dayArr.length) {
-//                     const day = dayArr[dayIndex];
-//                     const yearStr = year.toString();
-//                     const monthStr = month.toString().padStart(2,"0"); //补充为两位
-//                     const dayStr = day.toString().padStart(2,"0"); //补充为两位
-//                     return yearStr + '-' + monthStr + '-' + dayStr;
-//                 } else {
-//                     AndroidBridge.showToast("用户取消了选择！");
-//                     return -1; // 用户取消时返回 false
-//                 }
-//             } else {
-//                 AndroidBridge.showToast("用户取消了选择！");
-//                 return -1; // 用户取消时返回 false
-//             }
-//         } else {
-//             AndroidBridge.showToast("用户取消了选择！");
-//             return -1; // 用户取消时返回 false
-//         }
-//     } catch (error) {
-//         AndroidBridge.showToast("显示列表出错！" + error.message);
-//         return -1; // 出现错误时也返回 false
-//     }
-// }
-
 //显示一个是否手动输入学年学期信息的弹窗
 async function confirmGetXNXQAlert() {
     try {
@@ -399,8 +349,8 @@ async function saveConfig(semesterTotalWeeks) {
     // 注意：只传入要修改的字段，其他字段（如 semesterTotalWeeks）会使用 Kotlin 模型中的默认值
     let semesterStartData = "";
 
+    //显示三次单项选择框，向用户获取开学时间
     try {
-        //显示选择开学日期的三次单选框
         const yearIndex = await window.AndroidBridgePromise.showSingleSelection(
             "请选择开学时间（年份）",
             JSON.stringify(yearArr),
@@ -415,7 +365,7 @@ async function saveConfig(semesterTotalWeeks) {
             );
             if (monthIndex !== null && monthIndex >= 0 && monthIndex < 12) {
                 const month =[1,2,3,4,5,6,7,8,9,10,11,12][monthIndex];
-                const dayArr = []; //得到本月天数数组
+                const dayArr = [];
                 for (let i = 1; i <= getDaysInMonth(year,month); i++) {
                     dayArr.push(i);
                 }
@@ -423,26 +373,31 @@ async function saveConfig(semesterTotalWeeks) {
                     "请选择开学时间（日期）",
                     JSON.stringify(dayArr),
                     7
-                    );
-                    if (dayIndex !== null && dayIndex >= 0 && dayIndex < dayArr.length) {
-                        const day = dayArr[dayIndex];
-                        const yearStr = year.toString();
-                        const monthStr = month.toString().padStart(2,"0"); //补充为两位
-                        const dayStr = day.toString().padStart(2,"0"); //补充为两位
-                        semesterStartData =  yearStr + '-' + monthStr + '-' + dayStr;
-                    } else {
-                        AndroidBridge.showToast("用户取消了选择！");
-                        return -1; // 用户取消时返回 false
-                    }
+                );
+                if (dayIndex !== null && dayIndex >= 0 && dayIndex < dayArr.length) {
+                    const day = dayArr[dayIndex];
+                    const yearStr = year.toString();
+                    const monthStr = month.toString().padStart(2,"0"); //补充为两位
+                    const dayStr = day.toString().padStart(2,"0"); //补充为两位
+                    semesterStartData =  yearStr + '-' + monthStr + '-' + dayStr;
                 } else {
                     AndroidBridge.showToast("用户取消了选择！");
-                    return -1; // 用户取消时返回 false
+                    return -1; // 用户取消时返回 -1
                 }
+            } else {
+                AndroidBridge.showToast("用户取消了选择！");
+                return -1; // 用户取消时返回 -1
+            }
         } else {
             AndroidBridge.showToast("用户取消了选择！");
-            return -1; // 用户取消时返回 false
+            return -1; // 用户取消时返回 -1
         }
-        console.log(semesterStartData);
+    } catch (error) {
+        AndroidBridge.showToast("显示列表出错！" + error.message);
+        return -1; // 出现错误时也返回 -1
+    }
+
+    try {
         const courseConfigData = {
             "semesterStartDate": semesterStartData, //月份要使用两位数，否则软件会崩溃
             "semesterTotalWeeks": Number(semesterTotalWeeks),
@@ -450,10 +405,6 @@ async function saveConfig(semesterTotalWeeks) {
             "defaultBreakDuration": 10,
             "firstDayOfWeek": 7
         };
-        // } catch (error) {
-        //     AndroidBridge.showToast("显示列表出错！" + error.message);
-        //     return -1; // 出现错误时也返回 false
-        // }
         const configJsonString = JSON.stringify(courseConfigData);
         const result = await window.AndroidBridgePromise.saveCourseConfig(configJsonString);
         if (result === true) {
@@ -464,7 +415,7 @@ async function saveConfig(semesterTotalWeeks) {
             return -1;
         }
     } catch (error) {
-        AndroidBridge.showToast("出现错误：" + error.message);
+        AndroidBridge.showToast("导入配置失败: " + error.message);
         return -1;
     }
 }
@@ -492,25 +443,17 @@ async function runAllDemosSequentially() {
         return; // 用户取消，立即退出函数
     }
 
-    // //获取开学日期
-    // const semesterStartData = await getSemesterStartDate();
-    // if(semesterStartData === -1) {
-    //     return;
-    // }else{
-    //     console.log(semesterStartData);
-    //     AndroidBridge.showToast("选择的开学时间是：" + semesterStartData);
-    // }
-
     const totalNum = await saveCourses();
     if(totalNum === -1) {
         return;
     }
     await importPresetTimeSlots();
     const saveConfigResult = await saveConfig(totalNum);
-    if(saveConfigResult === -1){
+    if(saveConfigResult === -1)
+    {
         return;
     }
-    
+
     // 发送最终的生命周期完成信号
     AndroidBridge.notifyTaskCompletion();
 }
