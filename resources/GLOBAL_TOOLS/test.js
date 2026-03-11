@@ -79,7 +79,7 @@ async function getSemesterStartDate(){
                     const yearStr = year.toString();
                     const monthStr = month.toString().padStart(2,"0"); //补充为两位
                     const dayStr = day.toString().padStart(2,"0"); //补充为两位
-                    return ‘${yearStr}-${monthStr}-${dayStr}’;
+                    return "${yearStr}-${monthStr}-${dayStr}";
                 } else {
                     AndroidBridge.showToast("用户取消了选择！");
                     return -1; // 用户取消时返回 false
