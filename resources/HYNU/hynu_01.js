@@ -190,7 +190,7 @@ async function runImportFlow() {
 
         AndroidBridge.showToast("正在获取教务数据...");
         
-        const response = await fetch("https://hysfjw.hynu.cn/jsxsd/xskb/xskb_list.do", {
+        const response = await fetch("https://hysfjw.hynu.edu.cn/jsxsd/xskb/xskb_list.do", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: `cj0701id=&zc=&demo=&xnxq01id=${semesterId}`,
