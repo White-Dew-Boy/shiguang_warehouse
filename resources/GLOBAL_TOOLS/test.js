@@ -1,8 +1,7 @@
 //拾光课程表适配JNU脚本（fetch API）
 //本脚本的时间段自动导入仅适配珠海校区，其它校区可自行重新设置上课时间段
 
-//根据URL特征判断当前所在界面
-
+//生成年份数组
 const yearArr = [];
 for(let i=1990; i<=2100; i++){
     yearArr.push(i);
@@ -13,6 +12,7 @@ function getDaysInMonth(year, month) {
     return new Date(year, month, 0).getDate();
 }
 
+//根据URL特征判断当前所在界面
 function checkCurrentPage() {
     const currenturl = window.location.href.toLowerCase(); //获取当前URL并转为小写
     if (currenturl.includes("login?")) {
