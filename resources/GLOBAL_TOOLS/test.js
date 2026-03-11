@@ -400,6 +400,7 @@ async function saveCourses(courseData) {
 //导入课表配置
 async function saveConfig(semesterStartDate, semesterTotalWeeks) {
     // 注意：只传入要修改的字段，其他字段（如 semesterTotalWeeks）会使用 Kotlin 模型中的默认值
+    AndroidBridge.showToast("课");
     const courseConfigData = {
         "semesterStartDate": String(semesterStartDate), //月份要使用两位数，否则软件会崩溃
         "semesterTotalWeeks": Number(semesterTotalWeeks),
