@@ -397,7 +397,7 @@ async function saveConfig(semesterTotalWeeks) {
     }
 
     if(!choseResult){
-        AndroidBridge.showToast("用户取消了选择，将按默认开学日期\n2026-3-9\n导入配置");
+        AndroidBridge.showToast("用户取消了选择，将按默认开学日期2026-3-9导入配置");
         semesterStartData = "2026-03-09";
     }
 
