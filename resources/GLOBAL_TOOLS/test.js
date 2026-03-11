@@ -348,6 +348,7 @@ async function saveCourses(courseData) {
 async function saveConfig(semesterTotalWeeks) {
     // 注意：只传入要修改的字段，其他字段（如 semesterTotalWeeks）会使用 Kotlin 模型中的默认值
     let semesterStartData = "";
+    let choseResult = 1;
 
     //显示三次单项选择框，向用户获取开学时间
     try {
@@ -382,21 +383,25 @@ async function saveConfig(semesterTotalWeeks) {
                     semesterStartData =  yearStr + '-' + monthStr + '-' + dayStr;
                     AndroidBridge.showToast("你选择的开学时间为：" + semesterStartData);
                 } else {
-                    AndroidBridge.showToast("用户取消了选择！");
-                    return -1; // 用户取消时返回 -1
+                    choseResult = 0;
                 }
             } else {
-                AndroidBridge.showToast("用户取消了选择！");
-                return -1; // 用户取消时返回 -1
+                choseResult = 0;
             }
         } else {
-            AndroidBridge.showToast("用户取消了选择！");
-            return -1; // 用户取消时返回 -1
+            choseResult = 0;
         }
     } catch (error) {
         AndroidBridge.showToast("显示列表出错！" + error.message);
         return -1; // 出现错误时也返回 -1
     }
+
+    if(!choseResult){
+        AndroidBridge.showToast("用户取消了选择，将按默认开学日期\n2026-3-9\n导入配置");
+        semesterStartData = "2026-03-09";
+    }
+
+
 
     try {
         const courseConfigData = {
