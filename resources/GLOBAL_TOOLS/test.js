@@ -457,7 +457,7 @@ async function runAllDemosSequentially() {
         return;
     }
     await importPresetTimeSlots();
-    await saveConfig(semesterStartData, totalNum);
+    await saveConfig("2026-03-08", totalNum);
 
     // 发送最终的生命周期完成信号
     AndroidBridge.notifyTaskCompletion();
