@@ -267,3 +267,8 @@ schools:
     name: "华南理工大学"
     initial: "H"
     resource_folder: "SCUT"
+
+  - id: "HYNU"
+    name: "衡阳师范学院"
+    initial: "H"
+    resource_folder: "HYNU"    
