@@ -380,6 +380,7 @@ async function saveConfig(semesterTotalWeeks) {
                     const monthStr = month.toString().padStart(2,"0"); //补充为两位
                     const dayStr = day.toString().padStart(2,"0"); //补充为两位
                     semesterStartData =  yearStr + '-' + monthStr + '-' + dayStr;
+                    AndroidBridge.showToast("你选择的开学时间为：" + semesterStartData);
                 } else {
                     AndroidBridge.showToast("用户取消了选择！");
                     return -1; // 用户取消时返回 -1
