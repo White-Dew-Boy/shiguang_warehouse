@@ -190,12 +190,12 @@ async function importPresetTimeSlots() {
     try {
         const result = await window.AndroidBridgePromise.savePresetTimeSlots(JSON.stringify(timeSlots));
         if (result === true) {
-            window.AndroidBridge.showToast("时间段导入成功！");
+            AndroidBridge.showToast("时间段导入成功！");
         } else {
-            window.AndroidBridge.showToast("时间段导入失败!");
+            AndroidBridge.showToast("时间段导入失败!");
         }
     } catch (error) {
-        window.AndroidBridge.showToast("导入时间段失败: " + error.message);
+        AndroidBridge.showToast("导入时间段失败: " + error.message);
     }
 }
 
