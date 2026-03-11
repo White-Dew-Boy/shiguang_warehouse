@@ -64,7 +64,7 @@ async function getSemesterStartDate(){
                 2
             );
             if (monthIndex !== null && monthIndex >= 0 && monthIndex < 12) {
-                let month =[1,2,3,4,5,6,7,8,9,10,11,12][monthIndex];
+                const month =[1,2,3,4,5,6,7,8,9,10,11,12][monthIndex];
                 const dayArr = [];
                 for (let i = 1; i <= getDaysInMonth(year,month); i++) {
                     dayArr.push(i);
@@ -75,14 +75,11 @@ async function getSemesterStartDate(){
                     7
                 );
                 if (dayIndex !== null && dayIndex >= 0 && dayIndex < dayArr.length) {
-                    let day = dayArr[dayIndex];
-                    if(month < 10) {
-                        month = "0" + month;
-                    }
-                    if(day < 10) {
-                        day = "0" + day;
-                    }
-                    return year + '-' + month + '-' + day;
+                    const day = dayArr[dayIndex];
+                    const yearStr = year.toString();
+                    const monthStr = month.toString().padStart(2,"0"); //补充为两位
+                    const dayStr = day.toString().padStart(2,"0"); //补充为两位
+                    return ‘${yearStr}-${monthStr}-${dayStr}’;
                 } else {
                     AndroidBridge.showToast("用户取消了选择！");
                     return -1; // 用户取消时返回 false
@@ -400,9 +397,8 @@ async function saveCourses(courseData) {
 //导入课表配置
 async function saveConfig(semesterStartDate, semesterTotalWeeks) {
     // 注意：只传入要修改的字段，其他字段（如 semesterTotalWeeks）会使用 Kotlin 模型中的默认值
-    AndroidBridge.showToast("课");
     const courseConfigData = {
-        "semesterStartDate": String(semesterStartDate), //月份要使用两位数，否则软件会崩溃
+        "semesterStartDate": semesterStartDate, //月份要使用两位数，否则软件会崩溃
         "semesterTotalWeeks": Number(semesterTotalWeeks),
         "defaultClassDuration": 45,
         "defaultBreakDuration": 10,
@@ -457,7 +453,7 @@ async function runAllDemosSequentially() {
         return;
     }
     await importPresetTimeSlots();
-    await saveConfig("2026-03-08", totalNum);
+    await saveConfig(semesterStartDate, totalNum);
 
     // 发送最终的生命周期完成信号
     AndroidBridge.notifyTaskCompletion();
