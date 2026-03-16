@@ -297,3 +297,8 @@ schools:
     name: "河北地质大学华信学院"
     initial: "H"
     resource_folder: "HBGUHX"
+    
+  - id: "YXHMC"
+    name: "成都银杏酒店管理学院"
+    initial: "C"
+    resource_folder: "YXHMC"
