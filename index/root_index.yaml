@@ -26,7 +26,7 @@ schools:
   - id: "urp_jiaowu"
     name: "URP教务-通用教务"
     initial: "U"
-    resource_folder: "urp_jiaowu"    
+    resource_folder: "urp_jiaowu"
 
   - id: "CQU"
     name: "重庆大学"
@@ -42,6 +42,11 @@ schools:
     name: "长春理工大学"
     initial: "C"
     resource_folder: "CUST"
+
+  - id: "CUIT"
+    name: "成都信息工程大学"
+    initial: "C"
+    resource_folder: "CUIT"
 
   - id: "SHZQ"
     name: "上海中侨职业技术大学"
@@ -281,13 +286,13 @@ schools:
   - id: "HYNU"
     name: "衡阳师范学院"
     initial: "H"
-    resource_folder: "HYNU"    
+    resource_folder: "HYNU"
 
-  - id: "JNU"    
-    name: "暨南大学" 
-    initial: "J"          
-    resource_folder: "JNU"   
-    
+  - id: "JNU"
+    name: "暨南大学"
+    initial: "J"
+    resource_folder: "JNU"
+
   - id: "HQU"
     name: "华侨大学"
     initial: "H"
@@ -297,12 +302,12 @@ schools:
     name: "济南大学"
     initial: "J"
     resource_folder: "UJN"
-    
+
   - id: "HBGUHX"
     name: "河北地质大学华信学院"
     initial: "H"
     resource_folder: "HBGUHX"
-    
+
   - id: "YXHMC"
     name: "成都银杏酒店管理学院"
     initial: "C"
@@ -311,7 +316,7 @@ schools:
   - id: "HNIU"
     name: "湖南信息职业技术学院"
     initial: "H"
-    resource_folder: "HNIU"  
+    resource_folder: "HNIU"
 
   - id: "HUEL"
     name: "河南财经政法大学"
@@ -342,7 +347,7 @@ schools:
     name: "河南信息科技学院"
     initial: "H"
     resource_folder: "HIIT"
-    
+
   - id: "NEUQ"
     name: "东北大学秦皇岛分校"
     initial: "D"
