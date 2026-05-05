@@ -426,3 +426,8 @@ schools:
     name: "枣庄学院"
     initial: "Z"
     resource_folder: "UZZ"
+  
+  - id: "CMC"
+    name: "成都医学院"
+    initial: "C"
+    resource_folder: "CMC"
